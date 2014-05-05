@@ -1,0 +1,14 @@
+Source: murano-apps
+Section: Python
+Priority: extra
+Maintainer: dteselkin <dteselkin@mirantis.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.2
+Homepage: mirantis.com
+
+Package: murano-apps
+Architecture: all
+Depends: ${misc:Depends}
+  murano-api (>= 0.5)
+Description: murano-apps
+

@@ -1,0 +1,45 @@
+Namespaces:
+  =: io.murano.apps.PostgreSql
+  std: io.murano
+  res: io.murano.resources
+  sys: io.murano.system
+
+
+Name: PostgreSql
+
+Extends: std:Application
+
+Properties:
+  name:
+    Contract: $.string().notNull()
+
+  instance:
+    Contract: $.class(res:Instance).notNull()
+
+  username:
+    Contract: $.string().notNull()
+
+  password:
+    Contract: $.string().notNull()
+
+  database:
+    Contract: $.string().notNull()
+
+Workflow:
+  deploy:
+    Body:
+      - $this.find(std:Environment).reporter.report($this, 'Creating VM for a PostgreSql app.')
+      - $.instance.deploy()
+      - $resources: new(sys:Resources)
+      # Deploy PostgreSql
+      - $template: $resources.yaml('DeployPostgreSql.template')
+      - $.instance.agent.call($template, $resources)
+      - $this.find(std:Environment).reporter.report($this, 'Configure PostgreSql database.')
+      # Configure Database on PostgreSQL
+      - $template: $resources.yaml('ConfigurePostgreSqlDatabase.template').bind(dict(
+            database => $.database,
+            username => $.username,
+            password => $.password
+          ))
+      - $.instance.agent.call($template, $resources)
+      - $this.find(std:Environment).reporter.report($this, 'PostgreSql application is installed.')

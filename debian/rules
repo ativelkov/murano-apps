@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# export DH_VERBOSE=1
+
+DESTDIR := $(CURDIR)/debian/murano-apps
+
+%:
+	dh $@
+
+override_dh_auto_install:
+	cp -r $(CURDIR)/io.murano.apps.PostgreSql $(DESTDIR)/var/cache/murano/meta
+	cp -r $(CURDIR)/io.murano.apps.apache.Apache $(DESTDIR)/var/cache/murano/meta
+	cp -r $(CURDIR)/io.murano.apps.apache.Tomcat $(DESTDIR)/var/cache/murano/meta
+	cp -r $(CURDIR)/io.murano.apps.linux.Telnet $(DESTDIR)/var/cache/murano/meta
+	cp -r $(CURDIR)/io.murano.windows.ActiveDirectory $(DESTDIR)/var/cache/murano/meta
+	dh_auto_install
