@@ -26,15 +26,25 @@ Properties:
     Contract: $.string().notNull()
 
 Workflow:
+  initialize:
+    Body:
+      - $.environment: $.find(std:Environment).require()
+
   deploy:
     Body:
-      - $this.find(std:Environment).reporter.report($this, 'Creating VM for a PostgreSql app.')
+      - $.environment.reporter.report($this, 'Creating VM for a PostgreSql app.')
+      - $securityGroupIngress:
+          - ToPort: 5432
+            FromPort: 5432
+            IpProtocol: tcp
+            External: True
+      - $.environment.securityGroupManager.addGroupIngress($securityGroupIngress)
       - $.instance.deploy()
       - $resources: new(sys:Resources)
       # Deploy PostgreSql
       - $template: $resources.yaml('DeployPostgreSql.template')
       - $.instance.agent.call($template, $resources)
-      - $this.find(std:Environment).reporter.report($this, 'Configure PostgreSql database.')
+      - $.environment.reporter.report($this, 'Configure PostgreSql database.')
       # Configure Database on PostgreSQL
       - $template: $resources.yaml('ConfigurePostgreSqlDatabase.template').bind(dict(
             database => $.database,
@@ -42,4 +52,4 @@ Workflow:
             password => $.password
           ))
       - $.instance.agent.call($template, $resources)
-      - $this.find(std:Environment).reporter.report($this, 'PostgreSql application is installed.')
+      - $.environment.reporter.report($this, 'PostgreSql application is installed.')
