@@ -1,5 +1,13 @@
 murano-apps (0.5-1) unstable; urgency=low
 
   * Initial release
+  * Added security rule to PostgreSQL application that open 5432 port used for communication between database client and database.
+    https://bugs.launchpad.net/mos/+bug/1334289
+
+  * Added securuty rules for: Apache, Telnet, TomCat, ActiveDirectory
+    https://bugs.launchpad.net/mos/+bug/1334670
+
+  * Fixed missing DomainSecurity.json
+    https://bugs.launchpad.net/mos/+bug/1347649
 
  -- dteselkin <dteselkin@mirantis.com>  Mon, 05 May 2014 18:05:03 +0300
