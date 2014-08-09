@@ -24,6 +24,6 @@ bash installer.sh -p sys -i "tomcat tomcat-webapps tomcat-admin-webapps"
 
 add_fw_rule '-I INPUT 1 -p tcp -m tcp --dport 8080 -j ACCEPT -m comment --comment "by murano, Tomcat"'
 
-systemctl enable tomcat.service
-systemctl start tomcat.service
+chkconfig tomcat on
+service tomcat start
 

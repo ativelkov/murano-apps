@@ -22,10 +22,10 @@ fi
 
 bash installer.sh -p sys -i "postgresql-server postgresql-contrib"
 
-postgresql-setup initdb
+service postgresql initdb
 
 sed -e "s/^#listen_addresses =.*$/listen_addresses = \'*\'/" -i /var/lib/pgsql/data/postgresql.conf
 add_fw_rule '-I INPUT 1 -p tcp -m tcp --dport 5432 -j ACCEPT -m comment --comment "by murano, PostgreSQL"'
 
-systemctl enable postgresql.service
-systemctl start postgresql.service
+chkconfig postgresql on
+service postgresql start

@@ -24,6 +24,6 @@ fi
 su -c "psql -d postgres -c \"CREATE DATABASE $1\"" -s /bin/sh postgres
 su -c "psql -d postgres -c \"CREATE USER $2 WITH PASSWORD '$3'\"" -s /bin/sh postgres
 su -c "psql -d postgres -c \"GRANT ALL PRIVILEGES ON DATABASE $1 to $2;\"" -s /bin/sh postgres
-echo "host $1 $2 all md5" >> /var/lib/pgsql/data/pg_hba.conf
+echo "host $1 $2 0.0.0.0/0 md5" >> /var/lib/pgsql/data/pg_hba.conf
 
-systemctl restart postgresql.service
+service postgresql restart
