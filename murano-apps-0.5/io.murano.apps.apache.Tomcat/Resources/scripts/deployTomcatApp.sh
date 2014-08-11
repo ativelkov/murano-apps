@@ -24,6 +24,11 @@ bash installer.sh -p sys -i "java-devel"
 
 cd /usr/share/tomcat/webapps
 git clone $1 app
+
+/bin/cp app/WEB-INF/lib/*.* /usr/share/tomcat/lib/
+
+service tomcat restart
+
 cd app/WEB-INF/classes
 for f in $(find . -name "*.java"); do
     javac -cp /usr/share/tomcat/lib/tomcat-servlet-3.0-api.jar "$f"

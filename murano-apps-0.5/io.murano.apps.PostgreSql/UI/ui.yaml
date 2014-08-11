@@ -46,6 +46,7 @@ Forms:
           description: >-
              Select to true to assign floating IP automatically
           initial: false
+          hidden: true
           required: false
           widgetMedia:
             css: {all: ['muranodashboard/css/checkbox.css']}

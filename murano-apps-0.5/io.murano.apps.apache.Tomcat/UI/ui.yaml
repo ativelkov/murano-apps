@@ -37,6 +37,7 @@ Forms:
         - name: assignFloatingIP
           type: boolean
           label: Assign Floating IP
+          hidden: true
           description: >-
              Select to true to assign floating IP automatically
           initial: false

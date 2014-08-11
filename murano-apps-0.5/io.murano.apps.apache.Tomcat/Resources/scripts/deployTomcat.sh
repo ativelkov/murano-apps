@@ -20,6 +20,10 @@ if [[ "$DistroBasedOn" != "redhat" ]]; then
     exit 1
 fi
 
+
+yum-config-manager --enable rhel-6-server-optional-rpms
+yum update -y
+
 bash installer.sh -p sys -i "tomcat tomcat-webapps tomcat-admin-webapps"
 
 add_fw_rule '-I INPUT 1 -p tcp -m tcp --dport 8080 -j ACCEPT -m comment --comment "by murano, Tomcat"'
