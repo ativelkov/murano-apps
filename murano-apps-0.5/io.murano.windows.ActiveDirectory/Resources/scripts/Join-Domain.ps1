@@ -53,7 +53,7 @@ Requires 'CoreFunctions' module
 
             Write-Log "Waiting 30 seconds to restart ..."
             Start-Sleep -Seconds 30
-            <#
+<#
             if ($AllowRestart) {
                 Write-Log "Restarting computer ..."
                 Restart-Computer -Force
@@ -61,7 +61,7 @@ Requires 'CoreFunctions' module
             else {
                 Write-Log "Please restart the computer now."
             }
-            #>
+#>
         }
     }
 }

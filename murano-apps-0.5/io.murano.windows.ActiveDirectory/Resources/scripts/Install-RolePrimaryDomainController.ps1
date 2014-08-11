@@ -21,7 +21,7 @@ Function Install-RolePrimaryDomainController {
         }
 
         $OSVersion = [System.Environment]::OSVersion.Version
-        $VersionString = $OSVersion.Major + '.' + $OSVersion.Minor
+        $VersionString = "$($OSVersion.Major).$($OSVersion.Minor)"
 
         switch ($VersionString) {
             '6.1' {
