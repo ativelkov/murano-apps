@@ -19,10 +19,10 @@ Workflow:
       - $.host.joinDomain($.domain)
       - $resources: new(sys:Resources)
       - $template: $resources.json('CreateSecondaryDC.template').bind(dict(
-            domain => $.domain.name,
-            recoveryPassword => $.recoveryPassword,
+            domain            => $.domain.name,
+            recoveryPassword  => $.recoveryPassword,
             domainAccountName => $.domain.adminAccountName,
-            domainPassword => $.domain.adminPassword
+            domainPassword    => $.domain.adminPassword
           ))
       - $.host.agent.call($template, $resources)
 #

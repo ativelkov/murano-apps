@@ -46,4 +46,3 @@ Workflow:
             dnsIp          => $domain.primaryController.dnsIp
           ))
       - $.agent.call($template, $resources)
-

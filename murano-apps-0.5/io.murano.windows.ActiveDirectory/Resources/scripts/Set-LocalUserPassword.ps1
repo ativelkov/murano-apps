@@ -20,11 +20,11 @@ Function Set-LocalUserPassword {
         trap {
             &$TrapHandler
         }
-        
+
         if ((Get-WmiObject Win32_UserAccount -Filter "LocalAccount = 'True' AND Name='$UserName'") -eq $null) {
             throw "Unable to find local user account '$UserName'"
         }
-        
+
         if ($Force) {
             Write-Log "Changing password for user '$UserName' to '*****'" # :)
             $null = ([ADSI] "WinNT://./$UserName").SetPassword($Password)
