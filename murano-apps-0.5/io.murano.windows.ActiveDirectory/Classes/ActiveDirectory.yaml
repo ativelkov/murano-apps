@@ -25,7 +25,7 @@ Properties:
     Contract: $.string().notNull()
     Default: P@ssw0rd
 
-Workflow::
+Workflow:
   initialize:
     Body:
       - $.environment: $.find(std:Environment).require()
