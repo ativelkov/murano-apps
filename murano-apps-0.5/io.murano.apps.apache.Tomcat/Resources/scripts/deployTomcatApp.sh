@@ -20,16 +20,16 @@ if [[ "$DistroBasedOn" != "redhat" ]]; then
     exit 1
 fi
 
-bash installer.sh -p sys -i "java-devel"
+bash installer.sh -p sys -i "java-1.7.0-openjdk-devel"
 
-cd /usr/share/tomcat/webapps
+cd /usr/share/tomcat6/webapps
 git clone $1 app
 
-/bin/cp app/WEB-INF/lib/*.* /usr/share/tomcat/lib/
+/bin/cp app/WEB-INF/lib/*.* /usr/share/tomcat6/lib/
 
-service tomcat restart
+service tomcat6 restart
 
 cd app/WEB-INF/classes
 for f in $(find . -name "*.java"); do
-    javac -cp /usr/share/tomcat/lib/tomcat-servlet-3.0-api.jar "$f"
+    javac -cp /usr/share/tomcat6/lib/tomcat-servlet-2.5-api.jar "$f"
 done

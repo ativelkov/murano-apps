@@ -20,6 +20,7 @@ if [[ "$DistroBasedOn" != "redhat" ]]; then
     exit 1
 fi
 
+enable_local_mirrors
 bash installer.sh -p sys -i "postgresql-server postgresql-contrib"
 
 service postgresql initdb
