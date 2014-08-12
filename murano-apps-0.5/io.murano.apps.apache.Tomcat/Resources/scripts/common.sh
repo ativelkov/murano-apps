@@ -204,6 +204,7 @@ function package_renamer(){
 }
 
 function enable_local_mirrors(){
+    rm -f /etc/yum.repos.d/*
     cat <<EOF > /etc/yum.repos.d/internal-repo
 [base]
 name=RHEL Local Mirror
@@ -217,7 +218,6 @@ baseurl=ftp://172.16.152.7/rhel-repo/supplementary
 gpgcheck=0
 enabled=1
 EOF
-    rm -f /etc/yum.repos.d/*
     yum clean all
     yum update -y
 }
