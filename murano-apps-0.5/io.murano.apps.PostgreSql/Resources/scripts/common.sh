@@ -217,7 +217,6 @@ baseurl=ftp://172.16.152.7/rhel-repo/supplementary
 gpgcheck=0
 enabled=1
 EOF
-    rm -f /etc/yum.repos.d/*
     yum clean all
     yum update -y
 }
