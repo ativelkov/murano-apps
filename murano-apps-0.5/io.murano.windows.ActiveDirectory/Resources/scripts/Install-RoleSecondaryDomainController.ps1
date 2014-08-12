@@ -47,7 +47,8 @@ Install additional (secondary) domain controller.
             '6.1' {
                 Import-Module ServerManager
 
-                Add-WindowsFeature -Name "DNS","ADDS-Domain-Controller","RSAT-DFS-Mgmt-Con"
+                Add-WindowsFeature ADDS-Domain-Controller
+                Add-WindowsFeature RSAT-DFS-Mgmt-Con
 
                 Write-Log "Adding secondary domain controller ..."
 <#
@@ -72,7 +73,7 @@ Install additional (secondary) domain controller.
                     '/rebootOnCompletion:no'
                 )
 
-                Exec 'dcpromo' $DcPromoArgs
+                $null = Exec 'dcpromo' $DcPromoArgs -RedirectStreams
             }
             default {
                 $Credential = New-Credential -UserName "$DomainName\$UserName" -Password $Password
