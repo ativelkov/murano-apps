@@ -27,4 +27,3 @@ bash installer.sh -p sys -i "java-1.7.0-openjdk-devel tomcat6"
 add_fw_rule '-I INPUT 1 -p tcp -m tcp --dport 8080 -j ACCEPT -m comment --comment "by murano, Tomcat"'
 
 chkconfig tomcat6 on
-service tomcat6 start

@@ -25,8 +25,6 @@ git clone $1 app
 
 /bin/cp app/WEB-INF/lib/*.* /usr/share/tomcat6/lib/
 
-service tomcat6 restart
-
 cd app/WEB-INF/classes
 for f in $(find . -name "*.java"); do
     javac -cp /usr/share/tomcat6/lib/tomcat6-servlet-2.5-api-6.0.24.jar "$f"

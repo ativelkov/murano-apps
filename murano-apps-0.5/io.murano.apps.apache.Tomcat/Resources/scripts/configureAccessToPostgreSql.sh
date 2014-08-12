@@ -24,3 +24,5 @@ sed -e "s/YOURUSERNAMEHERE/$2/" -i /usr/share/tomcat6/webapps/app/META-INF/conte
 sed -e "s/YOURPASSWORDHERE/$3/" -i /usr/share/tomcat6/webapps/app/META-INF/context.xml
 sed -e "s/YOURHOSTHERE/$4/" -i /usr/share/tomcat6/webapps/app/META-INF/context.xml
 sed -e "s/YOURDATABASEHERE/$1/" -i /usr/share/tomcat6/webapps/app/META-INF/context.xml
+
+service tomcat6 start
