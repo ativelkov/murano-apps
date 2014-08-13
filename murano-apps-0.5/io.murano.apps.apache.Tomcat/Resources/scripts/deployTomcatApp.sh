@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/bin/bash -x
+
+logfile=/tmp/deployTomcatApp.log
+exec > $logfile 2>&1
 
 function include(){
     curr_dir=$(cd $(dirname "$0") && pwd)
@@ -20,16 +23,12 @@ if [[ "$DistroBasedOn" != "redhat" ]]; then
     exit 1
 fi
 
-bash installer.sh -p sys -i "java-devel"
-
-cd /usr/share/tomcat/webapps
+cd /usr/share/tomcat6/webapps
 git clone $1 app
 
-/bin/cp app/WEB-INF/lib/*.* /usr/share/tomcat/lib/
-
-service tomcat restart
+/bin/cp app/WEB-INF/lib/*.* /usr/share/tomcat6/lib/
 
 cd app/WEB-INF/classes
 for f in $(find . -name "*.java"); do
-    javac -cp /usr/share/tomcat/lib/tomcat-servlet-3.0-api.jar "$f"
+    javac -cp /usr/share/tomcat6/lib/tomcat6-servlet-2.5-api-6.0.24.jar "$f"
 done

@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/bin/bash -x
+
+logfile=/tmp/deployPostgreSql.log
+exec > $logfile 2>&1
 
 function include(){
     curr_dir=$(cd $(dirname "$0") && pwd)
@@ -20,6 +23,7 @@ if [[ "$DistroBasedOn" != "redhat" ]]; then
     exit 1
 fi
 
+enable_local_mirrors
 bash installer.sh -p sys -i "postgresql-server postgresql-contrib"
 
 service postgresql initdb

@@ -1,5 +1,5 @@
 #!/bin/bash
-# 
+#
 DEBUGLVL=3
 LOGFILE=/tmp/muranodeployment.log
 PIPAPPS="pip python-pip pip-python"
@@ -201,4 +201,23 @@ function package_renamer(){
             ;;
     esac
     echo $_pkg
+}
+
+function enable_local_mirrors(){
+    rm -f /etc/yum.repos.d/*
+    cat <<EOF > /etc/yum.repos.d/internal.repo
+[base]
+name=RHEL Local Mirror
+baseurl=ftp://172.16.152.7/rhel-repo/base
+gpgcheck=0
+enabled=1
+
+[supplementary]
+name=RHEL Local Mirror
+baseurl=ftp://172.16.152.7/rhel-repo/supplementary
+gpgcheck=0
+enabled=1
+EOF
+    yum clean all
+    yum update -y
 }

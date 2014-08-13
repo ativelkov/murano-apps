@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/bin/bash -x
+
+logfile=/tmp/deployTomcat.log
+exec > $logfile 2>&1
 
 function include(){
     curr_dir=$(cd $(dirname "$0") && pwd)
@@ -20,14 +23,10 @@ if [[ "$DistroBasedOn" != "redhat" ]]; then
     exit 1
 fi
 
-
-yum-config-manager --enable rhel-6-server-optional-rpms
-yum update -y
-
-bash installer.sh -p sys -i "tomcat tomcat-webapps tomcat-admin-webapps"
+enable_local_mirrors
+yum remove -y java-1.7.0-openjdk
+bash installer.sh -p sys -i "java-1.7.0-openjdk-devel tomcat6"
 
 add_fw_rule '-I INPUT 1 -p tcp -m tcp --dport 8080 -j ACCEPT -m comment --comment "by murano, Tomcat"'
 
-chkconfig tomcat on
-service tomcat start
-
+chkconfig tomcat6 on

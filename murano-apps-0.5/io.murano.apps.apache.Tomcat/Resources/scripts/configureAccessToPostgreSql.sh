@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/bin/bash -x
+
+logfile=/tmp/configureAccessToPostgresql.log
+exec > $logfile 2>&1
 
 function include(){
     curr_dir=$(cd $(dirname "$0") && pwd)
@@ -20,7 +23,9 @@ if [[ "$DistroBasedOn" != "redhat" ]]; then
     exit 1
 fi
 
-sed -e "s/YOURUSERNAMEHERE/$2/" -i /usr/share/tomcat/webapps/app/META-INF/context.xml
-sed -e "s/YOURPASSWORDHERE/$3/" -i /usr/share/tomcat/webapps/app/META-INF/context.xml
-sed -e "s/YOURHOSTHERE/$4/" -i /usr/share/tomcat/webapps/app/META-INF/context.xml
-sed -e "s/YOURDATABASEHERE/$1/" -i /usr/share/tomcat/webapps/app/META-INF/context.xml
+sed -e "s/YOURUSERNAMEHERE/$2/" -i /usr/share/tomcat6/webapps/app/META-INF/context.xml
+sed -e "s/YOURPASSWORDHERE/$3/" -i /usr/share/tomcat6/webapps/app/META-INF/context.xml
+sed -e "s/YOURHOSTHERE/$4/" -i /usr/share/tomcat6/webapps/app/META-INF/context.xml
+sed -e "s/YOURDATABASEHERE/$1/" -i /usr/share/tomcat6/webapps/app/META-INF/context.xml
+
+service tomcat6 start
