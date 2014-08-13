@@ -29,9 +29,14 @@ Workflow:
   initialize:
     Body:
       - $.environment: $.find(std:Environment).require()
+      - $.setAttr(isDeployed, false)
 
   deploy:
     Body:
+      - If: $.getAttr(isDeployed, false)
+        Then:
+          - Return:
+
       - $.environment.reporter.report($this, 'Creating VM for a PostgreSql app.')
       - $securityGroupIngress:
           - ToPort: 5432
@@ -53,3 +58,4 @@ Workflow:
           ))
       - $.instance.agent.call($template, $resources)
       - $.environment.reporter.report($this, 'PostgreSql application is installed.')
+      - $.setAttr(isDeployed, true)
