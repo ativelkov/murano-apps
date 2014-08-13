@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/bin/bash -x
+
+logfile=/tmp/configureAccessToPostgresql.log
+exec > $logfile 2>&1
 
 function include(){
     curr_dir=$(cd $(dirname "$0") && pwd)
