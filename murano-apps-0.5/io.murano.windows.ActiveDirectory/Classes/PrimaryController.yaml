@@ -25,7 +25,7 @@ Workflow:
       - $.super($.deploy())
       - $resources: new(sys:Resources)
       - $template: $resources.json('CreatePrimaryDC.template').bind(dict(
-            domain => $.domain.name,
+            domain           => $.domain.name,
             recoveryPassword => $.recoveryPassword
           ))
       - $.host.agent.call($template, $resources)
